@@ -19,6 +19,7 @@ func main() {
 	d2 := jaccard(s1, s2)
 	t3 := time.Now()
 	fmt.Println("jaccard: ", d2, " spent:", t3.Sub(t2))
+	fmt.Println(float32(t2.Sub(t1).Nanoseconds())/float32(t3.Sub(t2).Nanoseconds()), "times faster than set")
 }
 
 func slice(size int) []interface{} {
@@ -26,12 +27,11 @@ func slice(size int) []interface{} {
 	for i := 0; i < size; i++ {
 		s = append(s, rand.Intn(100000000))
 	}
-	fmt.Println(s[0])
 	return s
 }
 
 func jaccard(s1, s2 []interface{}) float32 {
-	tmp := make(map[int]int, len(s1))
+	tmp := make(map[int]int, len(s1)+len(s2))
 	unionNum := 0
 	intersectNum := 0
 
