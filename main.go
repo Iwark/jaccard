@@ -31,7 +31,7 @@ func slice(size int) []interface{} {
 }
 
 func jaccard(s1, s2 []interface{}) float32 {
-	tmp := map[int]int{}
+	tmp := make(map[int]int, len(s1))
 	unionNum := 0
 	intersectNum := 0
 
