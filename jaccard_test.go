@@ -14,8 +14,8 @@ const sliceSize = 200000
 
 type JaccardTestSuite struct {
 	suite.Suite
-	s1  []interface{}
-	s2  []interface{}
+	s1  []int
+	s2  []int
 	st1 int64
 	st2 int64
 }
@@ -35,10 +35,16 @@ func (suite *JaccardTestSuite) TestCalcurateBySlices() {
 
 func (suite *JaccardTestSuite) TestCalcurateBySets() {
 	t1 := time.Now()
-	ss1 := mapset.NewSetFromSlice(suite.s1)
-	ss2 := mapset.NewSetFromSlice(suite.s2)
+	ss1 := mapset.NewSet()
+	ss2 := mapset.NewSet()
+	for _, i := range suite.s1 {
+		ss1.Add(i)
+	}
+	for _, i := range suite.s2 {
+		ss2.Add(i)
+	}
 	d := CalcurateBySets(ss1, ss2)
-	fmt.Println("jaccard: ", d, " spent:", time.Now().Sub(t1))
+	fmt.Println("jaccard_by_set: ", d, " spent:", time.Now().Sub(t1))
 	suite.st2 = time.Now().Sub(t1).Nanoseconds()
 }
 
@@ -46,8 +52,8 @@ func (suite *JaccardTestSuite) TearDownSuite() {
 	fmt.Println(float32(suite.st2)/float32(suite.st1), "times faster than set")
 }
 
-func makeSlice(size int) []interface{} {
-	s := make([]interface{}, 0, size)
+func makeSlice(size int) []int {
+	s := make([]int, 0, size)
 	for i := 0; i < size; i++ {
 		s = append(s, rand.Intn(100000000))
 	}
