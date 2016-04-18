@@ -10,8 +10,8 @@ import (
 
 func main() {
 	rand.Seed(time.Now().Unix())
-	s1 := slice(1000000)
-	s2 := slice(1000000)
+	s1 := slice(500000)
+	s2 := slice(500000)
 	t1 := time.Now()
 	d1 := setJaccard(s1, s2)
 	t2 := time.Now()
@@ -36,17 +36,21 @@ func jaccard(s1, s2 []interface{}) float32 {
 	intersectNum := 0
 
 	for _, s := range s1 {
+		if tmp[s.(int)] == 1 {
+			continue
+		}
 		tmp[s.(int)] = 1
 		unionNum++
 	}
 	for _, s := range s2 {
 		switch tmp[s.(int)] {
+		case 0:
+			unionNum++
 		case 1:
 			intersectNum++
 		case 2:
 			continue
 		}
-		unionNum++
 		tmp[s.(int)] = 2
 	}
 	return float32(intersectNum) / float32(unionNum)
@@ -55,5 +59,7 @@ func jaccard(s1, s2 []interface{}) float32 {
 func setJaccard(s1, s2 []interface{}) float32 {
 	ss1 := set.NewSetFromSlice(s1)
 	ss2 := set.NewSetFromSlice(s2)
-	return float32(ss1.Intersect(ss2).Cardinality()) / float32(ss1.Union(ss2).Cardinality())
+	intersectNum := ss1.Intersect(ss2).Cardinality()
+	unionNum := ss1.Union(ss2).Cardinality()
+	return float32(intersectNum) / float32(unionNum)
 }
