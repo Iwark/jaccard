@@ -1,5 +1,8 @@
 jaccard
 ===
+[![Build Status](https://travis-ci.org/Iwark/jaccard.svg?branch=master)](https://travis-ci.org/Iwark/jaccard)
+[![Coverage Status](https://coveralls.io/repos/github/Iwark/jaccard/badge.svg?branch=master)](https://coveralls.io/github/Iwark/jaccard?branch=master)
+[![GoReport](https://goreportcard.com/badge/Iwark/jaccard)](http://goreportcard.com/report/Iwark/jaccard)
 [![GoDoc](https://godoc.org/github.com/Iwark/jaccard?status.svg)](https://godoc.org/github.com/Iwark/jaccard)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
